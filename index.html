@@ -76,6 +76,7 @@
             <span>遇见你，真美好</span>
         </div>
         <div class="main">
+            <h4 id="qinghua"></h4>
             <div class="content">
                 <h1>pp And zy</h1>
                 <h2>TIME UNTIL 2019-11-11 💓 CHERISH EVERY DAY</h2>
@@ -125,6 +126,54 @@
     setInterval(() => {
         writeDataFormat()
     }, 1000)
+
+</script>
+<script>
+    function ajax(opt) {
+        opt = opt || {};
+        opt.method = opt.method && opt.method.toUpperCase() || 'GET';
+        opt.url = opt.url || '';
+        opt.async = opt.async || false;
+        opt.data = opt.data || null;
+        opt.error = opt.error || null;
+        opt.success = opt.success || null;
+        var xmlHttp = null;
+        if (XMLHttpRequest) {
+            xmlHttp = new XMLHttpRequest();
+        } else {
+            xmlHttp = new ActiveXObject('Microsoft.XMLHTTP');
+        }
+        xmlHttp.onreadystatechange = function () {
+            if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
+                opt.success && opt.success(xmlHttp.responseText);
+            } else if (xmlHttp.readyState == 4 && xmlHttp.status != 200) {
+                opt.error && opt.error();
+            }
+        };
+        var params = [];
+        for (var key in opt.data) {
+            params.push(key + '=' + opt.data[key]);
+        }
+        var postData = params.length ? (params.join('&')) : "";
+        if (opt.method.toUpperCase() === 'POST') {
+            xmlHttp.open(opt.method, opt.url, opt.async);
+            xmlHttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded;charset=utf-8');
+            xmlHttp.send(postData);
+        } else if (opt.method.toUpperCase() === 'GET') {
+            var url = postData ? opt.url + "?" + postData : opt.url;
+
+            xmlHttp.open(opt.method, url, opt.async);
+            xmlHttp.send(null);
+        }
+
+    }
+    ajax({
+        url:"http://111.230.131.90/caihong",
+        success(data){
+            data = JSON.parse(data);
+            document.getElementById("qinghua").innerHTML = data.data;
+        }
+    })
 
 </script>
 <!-- ppandzy -->
