@@ -1,0 +1,63 @@
+
+/* 文字超出 省略号显示 */
+.h-ellipsis-ponit{
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+  /* 分栏 布局 头部  固定在头部 */
+.h-flex-list-header {
+    display: flex;
+    top: 0;
+    width: 100%;
+    background: #fff;
+    box-sizing: border-box;
+    z-index: 1;
+    font-size: 17px;
+}
+.h-flex-list-header-line {
+    margin: 12px 0;
+    border-left: 1px solid #999;
+    display: inline-block;
+    height: 20px;
+    display: none;
+}
+.h-flex-list-header-list {
+    width: 100%;
+    height: 100%;
+    position: relative;
+   
+}
+.h-flex-list-header-list:not(.hidden)::after {
+    content:"";
+    margin: 12px 0;
+    border-left: 1px solid #999;
+    display: inline-block;
+    height: 20px;
+    position: absolute;
+    right: 0;
+    top:0;
+    z-index: 51;
+}
+.h-flex-list-header-list:last-child::after{
+    display: none;
+}
+.h-flex-list-header-list-3column{
+    width: 33.3%;
+    height: 100%;
+    position: relative;
+    flex : 1 1 auto;
+}
+.h-flex-list-header-list-1column{
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+/*修改选择框边框遮挡样式*/
+
+.weui-cells:before{
+border-top:0px !important;
+}
+.weui-cells:after{
+border-bottom:0px!important;
+}
