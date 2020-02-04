@@ -3,13 +3,19 @@ export default [
     {
         name: "main",
         path: "/", 
-        redirect: "/main/project",
+        redirect: "/main/main",
         meta: {} ,
     },
     {
-        name: "project",
-        path: "project", 
+        name: "main",
+        path: "main", 
         component: resolve => require(['Views/main'], resolve),
         meta: {} ,
+    },
+    {
+        name: "qs",
+        path: "qs",
+        component: resolve => require(['Views/qs'], resolve),
+
     }
 ]

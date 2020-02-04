@@ -26,14 +26,18 @@ for (var i in commons) {
 }
 
 
+import { Tabbar, TabbarItem } from 'vant';
+import 'vant/lib/index.css';
+Vue.use(Tabbar);
+Vue.use(TabbarItem);
 //引入element
-import {  Image,ButtonGroup,Button,Input,Card} from 'element-ui'
+// import {  Image,ButtonGroup,Button,Input,Card} from 'element-ui'
 
-Vue.use(Image)
-Vue.use(ButtonGroup)
-Vue.use(Button)
-Vue.use(Input)
-Vue.use(Card)
+// Vue.use(Image)
+// Vue.use(ButtonGroup)
+// Vue.use(Button)
+// Vue.use(Input)
+// Vue.use(Card)
 
 Vue.use(inject);
 new Vue({
