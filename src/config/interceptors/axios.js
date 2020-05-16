@@ -37,7 +37,7 @@ export function responseSuccessFunc(responseObj) {
   //     msg: 'this is a msg',
   //     data: null
   // }
-  return responseObj.data
+  return responseObj.data.body
   //TODO: 这里由于没有服务端 暂时先把数据全部返回出去
   let resData = responseObj.data
   let code = resData.status * 1 //强转数字 

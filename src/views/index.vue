@@ -4,6 +4,7 @@
       <van-tabbar route :fixed="false" active-color="#e2a18c">
         <van-tabbar-item replace to="/main/main" icon="shop-collect-o">ppzy</van-tabbar-item>
         <van-tabbar-item replace to="/main/qs" icon="records">情书</van-tabbar-item>
+        <van-tabbar-item replace to="/main/record" icon="smile-comment-o">说说</van-tabbar-item>
       </van-tabbar>
     </div>
     <div class="project-main">

@@ -1,6 +1,7 @@
 
 /****主线测试库****/
-let server_path = "http://111.230.131.90/";
+// let server_path = "http://111.230.131.90/serverapi"
+let server_path ="http://127.0.0.1:7001";
 export const SERVER_PATH = server_path;
 
 // 当前宿主平台

@@ -83,6 +83,7 @@ module.exports = {
                 'Routes': resolve('src/routes'),
                 'Assets': resolve('src/assets'),
                 'Service': resolve('src/service'),
+                'Services': resolve('src/services'),
                 'Plugins': resolve('src/plugins'),
                 'Components': resolve('src/components'),
                 'Commons': resolve('src/commons'),

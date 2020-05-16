@@ -126,7 +126,7 @@ export default {
   justify-content: center;
   flex-wrap: wrap;
   /* width: 80%; */
-  max-width: 800px;
+  // max-width: 800px;
   min-height: 400px;
   overflow-y: auto;
 }
