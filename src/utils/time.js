@@ -1,6 +1,6 @@
 export function formatWeek(day) {
     const chinaWeek = ["一", "二", "三", "四", "五", "六", "日"];
-    return chinaWeek[day];
+    return chinaWeek[day-1];
 }
 
 export function formatTime(time) {
