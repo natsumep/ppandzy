@@ -20,11 +20,11 @@ module.exports = {
     productionSourceMap: false,
     pwa: {
         iconPaths: {
-            favicon32: 'favicon.ico',
-            favicon16: 'favicon.ico',
-            appleTouchIcon: 'favicon.ico',
-            maskIcon: 'favicon.ico',
-            msTileImage: 'favicon.ico'
+            favicon32: 'favicon.jpg',
+            favicon16: 'favicon.jpg',
+            appleTouchIcon: 'favicon.jpg',
+            maskIcon: 'favicon.jpg',
+            msTileImage: 'favicon.jpg'
         }
     },
     configureWebpack: config => {

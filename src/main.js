@@ -26,12 +26,15 @@ for (var i in commons) {
 }
 
 
-import { Tabbar, TabbarItem ,Button ,Field } from 'vant';
+import { Tabbar, TabbarItem ,Button ,Field,Toast } from 'vant';
+
 import 'vant/lib/index.css';
 Vue.use(Tabbar);
 Vue.use(TabbarItem);
 Vue.use(Button);
 Vue.use(Field);
+Vue.use(Toast);
+
 
 //引入element
 // import {  Image,ButtonGroup,Button,Input,Card} from 'element-ui'

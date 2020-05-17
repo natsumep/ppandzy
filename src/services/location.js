@@ -1,21 +1,39 @@
-import  axios from "axios"
- 
+import axios from "axios"
+const jsonp = (url) => {
+    if(!url){
+        console.error('请传入一个url参数')
+        return;
+    }
+    return new Promise((resolve,reject) => {
+        var random = +new Date() +"_"+ Math.random();
+        window["jsonCallBack"+"random"] =(result) => {
+            resolve(result)
+        }
+        var JSONP=document.createElement("script");
+        JSONP.type="text/javascript";
+        JSONP.src=`${url}&callback=${["jsonCallBack"+"random"]}`;
+        document.getElementsByTagName("head")[0].appendChild(JSONP);
+        setTimeout(() => {
+            document.getElementsByTagName("head")[0].removeChild(JSONP)
+        },500)
+    })
+} 
 class LocationService {
-    constructor(){
+    constructor() {
         this.coordinate = "";
         this.locationName = "";
     }
-    loadCoor(){
-        return new Promise((a,b)=>{
-            if(navigator.geolocation) {
+    loadCoor() {
+        return new Promise((a, b) => {
+            if (navigator.geolocation) {
                 var geo_options = {
-                    enableHighAccuracy: true, 
-                    maximumAge        : 3000, 
-                    timeout           : 2700
-                  };
+                    enableHighAccuracy: true,
+                    maximumAge: 3000,
+                    timeout: 2700
+                };
                 navigator.geolocation.getCurrentPosition(
-                    function (coords) {  
-                        const coordinate = [coords.coords.longitude,coords.coords.latitude];
+                    function (coords) {
+                        const coordinate = [coords.coords.longitude, coords.coords.latitude];
                         a({
                             coordinate,
                             coords
@@ -23,58 +41,60 @@ class LocationService {
                     },
                     function (e) {
                         b(e)
-                       throw(e.message);
+                        throw (e.message);
                     }
-                ) ,
-                geo_options
+                ),
+                    geo_options
             }
         })
-        
+
     }
-    loadLocName(){
-        return axios.get("https://apis.map.qq.com/ws/location/v1/ip",{
-            params:{key:"3IABZ-KBDKP-UB7D3-VSZ3O-UXE3F-QUFN5"}
+    loadLocName() {
+        return new Promise((a, b) => {
+            return jsonp("https://apis.map.qq.com/ws/location/v1/ip?key=3IABZ-KBDKP-UB7D3-VSZ3O-UXE3F-QUFN5&output=jsonp").then((data) => {
+            a(data)
+            })  
+        })
+
+    }
+    loadGeoLocInfo(geo) {
+        return new Promise((a, b) => {
+            return jsonp(`https://apis.map.qq.com/ws/geocoder/v1?key=3IABZ-KBDKP-UB7D3-VSZ3O-UXE3F-QUFN5&location=${geo.join(",")}`).then(data=>{
+                a(data)
+            })
         })
     }
-    loadGeoLocInfo(geo){
-        const params = {
-            key :"3IABZ-KBDKP-UB7D3-VSZ3O-UXE3F-QUFN5",
-            location: geo.join(","),
-        }
-        return axios.get("https://apis.map.qq.com/ws/geocoder/v1",{
-            params
-        })
-    }
-    getLocInfo(){
-        return new Promise((a,b)=>{
-            this.loadCoor().then((data)=>{
+    getLocInfo() {
+        return new Promise((a, b) => {
+            this.loadCoor().then((data) => {
                 const coordinate = data.coordinate;
-                this.loadGeoLocInfo(coordinate).then((data)=>{
+                this.loadGeoLocInfo(coordinate).then((data) => {
                     a({
                         coordinate,
-                        coordInfo:data.coords,
-                        address:data.result.address,
+                        coordInfo: data.coords,
+                        address: data.result.address,
                         source: "geolocation"
                     })
                 })
-            },()=>{
-                this.getTxLocInfo().then((data)=>{
+            }, () => {
+                this.getTxLocInfo().then((data) => {
                     a(data)
                 })
             })
         })
-        
+
     }
-    getTxLocInfo(){
-        return new Promise((a)=>{
-            this.loadLocName().then(data=>{
-                const coordinate = [data.result.lng,data.result.lat];
+    getTxLocInfo() {
+        return new Promise((a) => {
+            this.loadLocName().then(data => {
+                const coordinate = [data.result.location.lng, data.result.location.lat];
                 const adInfo = data.result.ad_info;
-                const address = [adInfo.nation,adInfo.province,adInfo.city,adInfo.district].join("")
+                const address = [adInfo.nation, adInfo.province, adInfo.city, adInfo.district].join("")
                 a({
                     coordinate,
                     address,
-                    source: "tencentMap"
+                    source: "tencentMap",
+                    coordInfo:"unkown"
                 })
             })
         })
@@ -82,4 +102,4 @@ class LocationService {
 }
 
 
-export const locationService =  new LocationService();
+export const locationService = new LocationService();

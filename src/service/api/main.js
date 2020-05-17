@@ -7,6 +7,11 @@ export const main = [
         method:"GET",
         path:"/caihong",
         serverPath: serverPath,
+    },
+    {
+        name:"memory/post",
+        method:"POST",
+        path:"/memory",
+        serverPath: serverPath,
     }
-   
   ]

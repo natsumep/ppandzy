@@ -1,7 +1,7 @@
 <template>
  <div>
-    <div>
-      <van-button @click="addNew()" type="primary">发布说说</van-button>
+    <div class="memory-header">
+      <van-button @click="addNew()" type="primary" size="small">又一次往日时光</van-button>
     </div>
  </div>
 </template>
@@ -23,8 +23,9 @@ export default {
 };
 </script>
 <style lang="stylus" >
-.footer {
-  text-align: center;
-  font-size: 14px;
+.memory-header{
+  display flex;
+  justify-content flex-end
+  padding 15px;
 }
 </style>
