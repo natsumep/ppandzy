@@ -36,7 +36,7 @@
     </van-field>
     <upload-file :children="{}" @fileUploads="getUploadFiles"></upload-file>
     <div class="record-add-btns">
-      <van-button @click="publishRecord()" size="small" type="primary"
+      <van-button @click="publishRecord" size="small" type="primary"
         >发布</van-button
       >
     </div>
@@ -89,6 +89,10 @@ export default {
           message: '往日时光记录成功',
           icon: 'like-o',
         });
+        this.$router.push("record");
+      },(e)=>{
+
+        alert(e)
       })
     },
      getUploadFiles(files,fileStatus){

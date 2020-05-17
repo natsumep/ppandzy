@@ -42,6 +42,8 @@ import axios from "axios";
 import uploadFileIcon from "Assets/images/addCommand.png";
 import fileDeleteIcon from "Assets/images/file_delete.png";
 import pdfIcon from "Assets/images/pdf.png";
+import { FILE_PATH as serverPath  } from 'Config/index';
+
 let hasShowPreviewer = false;
 
 export default {
@@ -214,17 +216,16 @@ export default {
                 }.bind(this),
                 progress: function(sym, len,name,type) {
                     var widget = this;
-                    return function(done) {
-                        var lens = parseInt(len * 100);
-                        widget.IMGFileArrChange("change", {
-                            sym: sym,
-                            length: lens,
-                            status: 0,
-                            name:name,
-                            type:type,
-                        });
-                        done();
-                    };
+                   
+                    var lens = parseInt(len * 100);
+                    widget.IMGFileArrChange("change", {
+                        sym: sym,
+                        length: lens,
+                        status: 0,
+                        name:name,
+                        type:type,
+                    });
+                      
                 }.bind(this),
                 successFn: function(url, urlObj, sym,name,type) {
                     this.IMGFileArrChange("change", {
@@ -283,7 +284,7 @@ export default {
                 this.failMessage = "网络波动，请重上传！";
             }
             if (option.status == 0) {
-                this.fileList[option.sym].length = option.length;
+                this.fileList[option.sym].loadLength = option.length;
             }
             if (option.status == 1) {
                 if (!this.fileList[option.sym].isDelete) {
@@ -336,19 +337,19 @@ export default {
                 var storeAs = (option.name || uuid) + suffix;
                 let config = {
                 //添加请求头
-                headers: { "Content-Type": "multipart/form-data" },
+                // headers: { "Content-Type": "multipart/form-data" },
                 //添加上传进度监听事件
-                onUploadProgress: e => {
-                    var completeProgress = ((e.loaded / e.total ) | 0) ;
-                    (callBack.progress = option.progress( _sym,completeProgress,file.name,file.type));
+                onUploadProgress:  function (progressEvent) {
+                    var completeProgress = ((progressEvent.loaded / progressEvent.total ) || 0) ;
+                    option.progress && option.progress( _sym,completeProgress,file.name,file.type);
                     }
                 };
                 const formDate = new FormData();
                 formDate.append("file", file);
                 formDate.append("time", +new Date());
-                const url = "http://111.230.131.90/files/upload"
+                const url = serverPath;
                 // const url = "http://127.0.0.1:8081/upload"
-                axios.post(url,formDate,option).then(function(result) {
+                axios.post(url,formDate,config).then(function(result) {
                         var rqUrl;
                         result = result.data;
                         if (result.url[0].lastIndexOf("?") !== -1) {

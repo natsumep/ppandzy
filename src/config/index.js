@@ -1,9 +1,9 @@
 
 /****主线测试库****/
 // let server_path = "http://111.230.131.90/serverapi"
-let server_path ="http://127.0.0.1:7001";
+let server_path ="http://192.168.0.104:7001";
 export const SERVER_PATH = server_path;
-
+export const FILE_PATH = "http://111.230.131.90/files/upload"
 // 当前宿主平台
 export const HOST_PLATFORM = 'WEB'
 
