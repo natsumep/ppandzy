@@ -1,9 +1,9 @@
 
 /****主线测试库****/
-let server_path_release = "https://111.230.131.90/serverapi"
+let server_path_release = "https://www.ppandzy.com/serverapi"
 let server_path ="http://192.168.0.104:7001";
 export const SERVER_PATH = process.env.NODE_ENV === 'production'? server_path_release : server_path;
-export const FILE_PATH = process.env.NODE_ENV === 'production'? "https://111.230.131.90/files/upload":"http://192.168.0.102:8081/upload"
+export const FILE_PATH = process.env.NODE_ENV === 'production'? "https://www.ppandzy.com/files/upload":"http://192.168.0.102:8081/upload"
 // 当前宿主平台
 export const HOST_PLATFORM = 'WEB'
 
