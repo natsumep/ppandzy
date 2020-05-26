@@ -84,7 +84,7 @@ body .tab-theme-main .tab-analog-select:disabled{
 }
 .tab-theme-m-tab {
     border-bottom: 1px solid #ccc;
-    background: hsl(220, 10%, 96%) ;
+    background: hpp(220, 10%, 96%) ;
     font-size: 0px;
 }
 .tab-theme-m-tab>a {
@@ -145,19 +145,20 @@ body .tab-theme-main .tab-analog-select:disabled{
     color: #fff;
     border-radius: 2px;
 }
-.sl-flex{
+.pp-flex{
     display: flex;
 }
-.sl-flex-wrap{
+.pp-flex-wrap{
     flex-wrap: wrap;
 }
 /*
-    配合 sl-flex-centen使用 两端对齐
+    配合 pp-flex-centen使用 两端对齐
  */
 
- .sl-flex-betWeen {
+ .pp-flex-betWeen {
+    display: flex;
     justify-content: space-between;
 }
-.sl-flex-fixed {
+.pp-flex-fixed {
    flex:0 0 auto;
 }

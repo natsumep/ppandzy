@@ -1,3 +1,9 @@
+<!--
+ * @Author: fangp
+ * @Date: 2020-05-26 10:52:04
+ * @LastEditors: 
+ * @LastEditTime: 2020-05-26 16:00:40
+--> 
 <template>
     <div class="widget-vertical-three" :style="mainStyle">
         <div class="widget-vertical-three-header">
@@ -45,5 +51,7 @@ export default {
 }
 .widget-vertical-three-main{
    flex: 1 1 auto;
+   overflow: auto;
+   height:100%;
 }
 </style>
