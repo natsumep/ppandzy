@@ -5,13 +5,14 @@ const jsonp = (url) => {
         return;
     }
     return new Promise((resolve,reject) => {
-        var random = +new Date() +"_"+ Math.random();
-        window["jsonCallBack"+"random"] =(result) => {
+        var random = (+new Date() +""+ Math.random()).replace(".","");
+        window["jsonCallBack"+random] = (result) => {
             resolve(result)
+            window["jsonCallBack"+random] = null;
         }
         var JSONP=document.createElement("script");
         JSONP.type="text/javascript";
-        JSONP.src=`${url}&callback=${["jsonCallBack"+"random"]}`;
+        JSONP.src=`${url}&callback=${["jsonCallBack"+random]}`;
         document.getElementsByTagName("head")[0].appendChild(JSONP);
         setTimeout(() => {
             document.getElementsByTagName("head")[0].removeChild(JSONP)
@@ -33,7 +34,7 @@ class LocationService {
                 };
                 navigator.geolocation.getCurrentPosition(
                     function (coords) {
-                        const coordinate = [coords.coords.longitude, coords.coords.latitude];
+                        const coordinate = [coords.coords.latitude, coords.coords.longitude];
                         a({
                             coordinate,
                             coords
@@ -51,7 +52,7 @@ class LocationService {
     }
     loadLocName() {
         return new Promise((a, b) => {
-            return jsonp("https://apis.map.qq.com/ws/location/v1/ip?key=3IABZ-KBDKP-UB7D3-VSZ3O-UXE3F-QUFN5&output=jsonp").then((data) => {
+            jsonp("https://apis.map.qq.com/ws/location/v1/ip?key=3IABZ-KBDKP-UB7D3-VSZ3O-UXE3F-QUFN5&output=jsonp").then((data) => {
             a(data)
             })  
         })
@@ -59,8 +60,10 @@ class LocationService {
     }
     loadGeoLocInfo(geo) {
         return new Promise((a, b) => {
-            return jsonp(`https://apis.map.qq.com/ws/geocoder/v1?key=3IABZ-KBDKP-UB7D3-VSZ3O-UXE3F-QUFN5&location=${geo.join(",")}`).then(data=>{
+            jsonp(`https://apis.map.qq.com/ws/geocoder/v1?key=3IABZ-KBDKP-UB7D3-VSZ3O-UXE3F-QUFN5&output=jsonp&location=${geo.join(",")}`).then(data=>{
                 a(data)
+            },(e)=>{
+                b(e);
             })
         })
     }
@@ -68,10 +71,11 @@ class LocationService {
         return new Promise((a, b) => {
             this.loadCoor().then((data) => {
                 const coordinate = data.coordinate;
+                const coordInfo = data.coords;
                 this.loadGeoLocInfo(coordinate).then((data) => {
                     a({
                         coordinate,
-                        coordInfo: data.coords,
+                        coordInfo,
                         address: data.result.address,
                         source: "geolocation"
                     })
