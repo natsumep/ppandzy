@@ -38,7 +38,7 @@
 </template>
 
 <script>
-import { getFileThumb } from "utils/files";
+import { getFileThumb } from "Utils/files";
 
 export default {
     data() {
