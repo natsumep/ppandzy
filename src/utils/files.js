@@ -2,7 +2,7 @@
  * @Author: fangp
  * @Date: 2020-06-09 16:56:12
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2020-06-09 16:56:18
+ * @LastEditTime: 2020-06-09 17:41:50
  */ 
 function checkHeadPortraitType(type) {
     if (!/(jpg|jpeg|png|bmp|JPG|PNG)$/.test(type)) {
@@ -67,8 +67,9 @@ exports.isImage = isImage;
  * 获取单个文件的缩略图 这里只支持文件和视频
  */
 function getFileThumb(path) {
-    if (isImage(path)) { //如果是视频
-        return path + "?x-oss-process=style/thumb";
+    if (isImage(path)) { 
+        var lastIndex = path.lastIndexOf(".") + 1;
+        return path.slice(0, lastIndex - 1) + "_thumb.jpg";
     }
     else if (isVideo(path)) {
         var lastIndex = path.lastIndexOf(".") + 1;
