@@ -92,7 +92,21 @@ export default {
                 this.address = data.address;
             });
         },
+
+        checkData(){
+            if(!this.fileStatus){
+                this.$toast({
+                        message: "往日时光记录成功",
+                        icon: "logistics"
+                    });
+                return false;
+            }
+            return true;
+        },
         publishRecord() {
+            if(!this.checkData){
+                return false;
+            }
             let {
                 title,
                 message,

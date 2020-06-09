@@ -19,7 +19,7 @@
                 </p>
                 
                 <p class="memory-message">
-                    甜蜜事件：{{item.message || "意会吧"}}
+                    甜蜜事件：{{item.message || "啦啦啦啦啦~~ 就只是打个卡"}}
                 </p>
                 <div class="memory-imgs">
                     <div class="img-content"  v-for='img in item.paths'>

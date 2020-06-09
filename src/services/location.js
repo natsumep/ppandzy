@@ -1,4 +1,3 @@
-import axios from "axios"
 const jsonp = (url) => {
     if(!url){
         console.error('请传入一个url参数')
@@ -34,7 +33,7 @@ class LocationService {
                 };
                 navigator.geolocation.getCurrentPosition(
                     function (coords) {
-                        const coordinate = [coords.coords.latitude, coords.coords.longitude];
+                        const coordinate = [coords.coords.longitude,coords.coords.latitude ];
                         a({
                             coordinate,
                             coords
@@ -48,8 +47,8 @@ class LocationService {
                     geo_options
             }
         })
-
     }
+    // 获取腾讯地图坐标 和 名称
     loadLocName() {
         return new Promise((a, b) => {
             jsonp("https://apis.map.qq.com/ws/location/v1/ip?key=3IABZ-KBDKP-UB7D3-VSZ3O-UXE3F-QUFN5&output=jsonp").then((data) => {
@@ -58,7 +57,9 @@ class LocationService {
         })
 
     }
+    // 根据坐标获取腾讯地图名称
     loadGeoLocInfo(geo) {
+        geo.reverse();
         return new Promise((a, b) => {
             jsonp(`https://apis.map.qq.com/ws/geocoder/v1?key=3IABZ-KBDKP-UB7D3-VSZ3O-UXE3F-QUFN5&output=jsonp&location=${geo.join(",")}`).then(data=>{
                 a(data)
@@ -91,7 +92,7 @@ class LocationService {
     getTxLocInfo() {
         return new Promise((a) => {
             this.loadLocName().then(data => {
-                const coordinate = [data.result.location.lng, data.result.location.lat];
+                const coordinate = [data.result.location.lat,data.result.location.lng];
                 const adInfo = data.result.ad_info;
                 const address = [adInfo.nation, adInfo.province, adInfo.city, adInfo.district].join("")
                 a({
