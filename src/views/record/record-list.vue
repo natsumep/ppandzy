@@ -38,6 +38,8 @@
 </template>
 
 <script>
+import { getFileThumb } from "utils/files";
+
 export default {
     data() {
         return {
@@ -51,7 +53,11 @@ export default {
         },
         async loadData() {
             const data = await this.$api["main/memory/list"]();
-            this.data = data.data;
+            this.data = data.data.map(item=>{
+                return  item.paths && item.paths.length && item.paths.map(img=>{
+                    return getFileThumb(img);
+                })|| [];
+            });
             this.total = data.total || this.data.length;
         }
     },
