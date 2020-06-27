@@ -12,10 +12,10 @@ let server_path ="http://222.222.222.22:8082";
 let file_path = "http://192.168.0.102:8081/upload";
 let file_path_release = "https://www.ppandzy.com/files/upload";
 export const SERVER_PATH = process.env.NODE_ENV === 'production'? server_path_release : server_path;
-// export const FILE_PATH = process.env.NODE_ENV === 'production'? file_path_release : file_path;
+export const FILE_PATH = process.env.NODE_ENV === 'production'? file_path_release : file_path;
 
 // export const SERVER_PATH = server_path_release;
-export const FILE_PATH =file_path_release;
+// export const FILE_PATH =file_path_release;
 // 当前宿主平台
 export const HOST_PLATFORM = 'WEB'
 

@@ -68,7 +68,7 @@ export default {
             address: "",
             title: "",
             paths: [],
-            fileStatus: true,
+            fileStatus: false,
             loactionInfo: {},
             source: "unkown"
         };
@@ -96,7 +96,7 @@ export default {
         checkData(){
             if(!this.fileStatus){
                 this.$toast({
-                        message: "往日时光记录成功",
+                        message: "图片还未上传成功呢~",
                         icon: "logistics"
                     });
                 return false;
@@ -104,7 +104,7 @@ export default {
             return true;
         },
         publishRecord() {
-            if(!this.checkData){
+            if(!this.checkData()){
                 return false;
             }
             let {
@@ -116,7 +116,13 @@ export default {
                 source,
                 paths
             } = this;
-            loactionInfo = JSON.stringify(loactionInfo);
+            let _loc = {};
+            if(loactionInfo && loactionInfo.coords){
+                 for(let i in loactionInfo.coords){
+                    _loc[i] = loactionInfo.coords[i];
+                }
+            }
+            loactionInfo = JSON.stringify(_loc);
             coordinate = `[${coordinate}]`;
             paths = JSON.stringify(paths);
             const param = {
