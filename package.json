@@ -12,7 +12,7 @@
   "dependencies": {
     "core-js": "^2.6.5",
     "jquery": "^3.4.1",
-    "node-sass": "^4.12.0",
+    "node-sass": "^4.13.1",
     "vant": "^2.4.6",
     "vue": "^2.6.10",
     "vue-router": "^3.1.2",
@@ -37,7 +37,7 @@
     "less": "^3.9.0",
     "less-loader": "^5.0.0",
     "lodash": "^4.17.15",
-    "node-sass": "^4.12.0",
+    "node-sass": "^4.13.1",
     "postcss-import": "^12.0.1",
     "postcss-loader": "^3.0.0",
     "postcss-url": "^8.0.0",
