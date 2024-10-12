@@ -13,15 +13,18 @@
       <div class="memory-item" v-for="item in data" :key="item.id">
         <p class="pp-flex-betWeen">
           <span class="memory-title">{{ item.title }}</span>
-          <span class="memory-coordinate">{{ item.coordinate.join(",") }}</span>
+          <span class="memory-coordinate">{{ item.coordinate?.map(item=>{return item?.toFixed?.(3) ?? item}).join(", ") }}</span>
         </p>
 
         <p class="memory-message">
           甜蜜事件：{{ item.message || "啦啦啦啦啦~~ 就只是打个卡" }}
         </p>
         <div class="memory-imgs">
-          <div class="img-content" v-for="(img,index) in item.pathsThumb" :key="img" @click="openImg(item.paths,index)">
-            <img :src="img" alt="" />
+          <div class="img-content" v-for="(img,index) in item.paths" :key="img" @click="openImg(item.paths,index)">
+            <img v-if="isImage(img)" :src="item.pathsThumb[index]" alt="" loading='lazy' />
+            <div v-if="isVideo(img)" class="img-content_video">
+              <video preload="auto"  :src="item.paths[index]" alt="" loading='lazy' />
+            </div>
           </div>
         </div>
         <p class="memory-address">
@@ -30,36 +33,75 @@
             >({{ item.source == "tencentMap" ? "腾讯地图" : "官方地图" }})</span
           >
         </p>
+          <p class="memory-address">
+           {{ item.createTime }}
+        </p>
       </div>
     </div>
+    <!-- <van-image-preview
+      v-model:show="show"
+      :images="images"
+      :close-on-click-image="false"
+      :closeable="true"
+      :start-position="position"
+    >
+      <template #image="{ src }">
+        <video style="width: 100%;" controls>
+          <source :src="src" />
+        </video>
+      </template>
+    </van-image-preview> -->
+
+    <van-overlay :custom-style="{paddingTop: '50px'}" z-index='999999' :show="show" @click="show = false">
+      <video preload="auto"  :src='videoSrc' @click.stop controls style="width: 100%;" />
+    </van-overlay>
   </div>
 </template>
 
 <script>
-import { getFileThumb } from "Utils/files";
-import { ImagePreview } from 'vant';
+import { getFileThumb, isVideo, isImage } from "Utils/files";
+import { ImagePreview ,Overlay } from 'vant';
 export default {
   data() {
     return {
       data: [],
       total: 0,
+
+      // position: 0,
+      // images: [],
+      show: false,
+      videoSrc:'',
     };
   },
   methods: {
-      openImg(list,index){
+    isVideo: isVideo,
+    isImage: isImage,
+    openImg(list,index){
+      if(isVideo(list[index])) {
+        this.show = true;
+        this.videoSrc = list[index];
+      } else {
         ImagePreview({
-        images: [
-            ...list
-        ],
-        startPosition: index,
+          images: [
+              ...list
+          ],
+          startPosition: index,
         });
-      },
+      }
+      // this.images = [...list];
+      // this.show = true;
+      // this.position = index;
+      
+    },
     addNew() {
       this.$router.push("record-add");
     },
     async loadData() {
       const data = await this.$api["main/memory/list"]();
       this.data = data.data.map((item) => {
+        item.paths = item?.paths?.map(item=>{
+          return item.replace('https://ppandzy.com','').replace('https://www.ppandzy.com','')
+        }) ?? []
         item.pathsThumb =
           (item.paths &&
             item.paths.length &&
@@ -87,6 +129,10 @@ export default {
   padding: 15px;
   margin: 3px;
   box-shadow: 0px 0px 8px 1px #c2c2c2;
+  position: sticky;
+  top: 0;
+  background-color: #d3e3f3;
+  z-index: 999;
 }
 
 .memory-total {
@@ -142,8 +188,22 @@ export default {
   padding-top: 100%;
   content: '';
 }
+.memory-imgs .img-content .img-content_video::after{
+ display: block;
+    content: 'video';
+    font-size: 12px;
+    z-index: 1;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-shadow: 0px 0px 2px #000;
+    color: #fff;
+}
+.memory-imgs .img-content img,
+.memory-imgs .img-content video,
 
-.memory-imgs .img-content img {
+ {
   width: 100%;
   position: absolute;
   height: 100%;

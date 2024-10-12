@@ -23,6 +23,11 @@ export default [
         component: resolve => require(['Views/record/record-list'], resolve),
     },
     {
+        name: "map",
+        path: "map",
+        component: resolve => require(['Views/map/index'], resolve),
+    },
+    {
         name: "recordAdd",
         path: "record-add",
         component: resolve => require(['Views/record/record-add'], resolve),

@@ -39,19 +39,16 @@ export default {
 </script>
 <style lang="stylus">
 .widget-vertical-three{
-    display flex;
-    flex-direction column;
     min-height 100vh;
-    height 100%;
 }
-.widget-vertical-three-header,
 .widget-vertical-three-footer
 {
-    flex: 0 0 auto;
+    position: fixed;
+    bottom: 0;
+    width:100%;
 }
 .widget-vertical-three-main{
-   flex: 1 1 auto;
-   overflow: auto;
-   height:100%;
+   min-height:100%;
+   padding-bottom: 50px;
 }
 </style>

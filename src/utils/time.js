@@ -1,5 +1,8 @@
 export function formatWeek(day) {
     const chinaWeek = ["一", "二", "三", "四", "五", "六", "日"];
+    if (day === 0 ){
+        return chinaWeek[6];
+    }
     return chinaWeek[day-1];
 }
 

@@ -26,11 +26,12 @@ for (var i in commons) {
 }
 
 
-import { Tabbar, TabbarItem ,Button ,Field,Toast ,ImagePreview} from 'vant';
+import { Tabbar, TabbarItem ,Button ,Field,Toast ,ImagePreview, Overlay} from 'vant';
 
 import 'vant/lib/index.css';
 
 // 全局注册
+Vue.use(Overlay);
 Vue.use(ImagePreview);
 Vue.use(Tabbar);
 Vue.use(TabbarItem);

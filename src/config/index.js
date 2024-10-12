@@ -6,11 +6,11 @@
  */ 
 
 /****主线测试库****/
-let server_path_release = "https://www.ppandzy.com/serverapi"
-let server_path ="https://www.ppandzy.com/serverapi";
+let server_path_release = "/serverapi"
+let server_path ="/serverapi";
 
-let file_path = "https://www.ppandzy.com/files/upload";
-let file_path_release = "https://www.ppandzy.com/files/upload";
+let file_path = "/files/upload";
+let file_path_release = "/files/upload";
 export const SERVER_PATH = process.env.NODE_ENV === 'production'? server_path_release : server_path;
 export const FILE_PATH = process.env.NODE_ENV === 'production'? file_path_release : file_path;
 

@@ -16,11 +16,12 @@
             </div>
         </div>
         <div class="uploadFile_imgs_list">
-            <div class="uploadFile_imgs"  v-if="(!item.isDelete && item.type.indexOf('image')>-1)" v-for="(item, index) in fileList" :key="index">
+            <div class="uploadFile_imgs"  v-if="(!item.isDelete && item.type.indexOf('image')>-1 || item.type.indexOf('video')>-1)" v-for="(item, index) in fileList" :key="index">
                 <img class="uploadFile_file_delete" :src="fileDeleteIcon" @click="deleteItem(index)">
                 <span v-show="!item.status" class="uploadFile_file_status"> 上传{{item.loadLength}}%</span>
                 <span v-show="item.status" class="uploadFile_file_status uploading">上传成功</span>
-                <img class="uploadFile_img" :src="item.msrc" @click="show(index)">
+                <img v-if="item.type.indexOf('image')>-1" class="uploadFile_img" :src="item.msrc" @click="show(index)">
+                <video preload="auto"  v-if="item.type.indexOf('video')>-1" class="uploadFile_img" :src="item.msrc" @click="show(index)" />
             </div>
             <div class="uploadFile_imgs" style="margin-bottom: 10px;margin-left: 11px;">
                 <img  v-show="isuploadFile" class="uploadFile_img" :src="uploadFileIcon" @click="addImgs">
@@ -58,7 +59,7 @@ export default {
             addIMGFile: undefined,
             isuploadFile:true,
             attachments:[],
-            typeArr:[{type:"image/*",name:"image"}],//上传类型
+            typeArr:[{type:"image/*",name:"image"}, {type:"video/*",name:"video"}],//上传类型
         }
     },
     props: ["children"],
@@ -78,7 +79,7 @@ export default {
             this.typeArr = this.children.typeArr;
 
         }else{
-            this.typeArr = [{type:"image/*",name:"image"}];
+            this.typeArr = [{type:"image/*",name:"image"}, {type:"video/*",name:"video"}];
         }
         this.addIMGFile.accept = this.fileTypeModify();
         this.addIMGFile.multiple = "multiple";

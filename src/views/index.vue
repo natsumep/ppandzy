@@ -42,6 +42,11 @@
                 >情书</van-tabbar-item>
                 <van-tabbar-item
                     replace
+                    to="/main/map"
+                    icon="guide-o"
+                >map</van-tabbar-item>
+                <van-tabbar-item
+                    replace
                     to="/main/record"
                     icon="smile-comment-o"
                 >说说</van-tabbar-item>

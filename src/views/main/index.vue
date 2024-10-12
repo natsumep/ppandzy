@@ -1,9 +1,11 @@
 <template>
   <div class="container">
     <div class="header">
-      <h1 class="title">遇见你，真美好</h1>
-      <div class="header-date">
-        <span class="format-data" id="formatDataSpan">{{nowTime }}</span>
+      <div>
+        <h1 class="title">遇见你，真美好</h1>
+        <div class="header-date">
+          <span class="format-data" id="formatDataSpan">{{nowTime }}</span>
+        </div>
       </div>
       <div>
         <!-- <span >每日情话：</span>  -->
@@ -73,7 +75,7 @@ export default {
     },
     showQh() {
       this.getQhData().then(data => {
-        this.qhText = data.data;
+        this.qhText = data.content;
       });
     },
     showNowTime() {
@@ -85,8 +87,9 @@ export default {
         this.showNowTime();
       }, 1000);
     },
-    getQhData() {
-      return this.$api["main/qh"]();
+    async getQhData() {
+      const data = await this.$api["main/qh"]();
+      return data?.data;
     }
   },
   created() {
@@ -110,7 +113,7 @@ export default {
 .header .header-date {
   color: #fff;
   font-size: 12px;
-  text-align: right;
+  //text-align: right;
   padding-right: 22px;
 }
 
